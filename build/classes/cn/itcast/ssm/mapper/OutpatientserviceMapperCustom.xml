@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itcast.ssm.mapper.OutpatientserviceMapperCustom">
+
+     <!-- 门诊类型查询 -->
+   <select id="selectOutPatById"  parameterType="cn.itcast.ssm.po.Outpatientservice" 
+                resultType="cn.itcast.ssm.po.Outpatientservice" >
+          SELECT * FROM outpatientservice      
+      <where>  <include refid="query_outpat_where"> </include> </where>
+   </select>
+   
+   <sql id="query_outpat_where">
+        <if test="officeId!=null">
+              outpatientservice.officeid =#{officeId}
+        </if>   
+   </sql>
+   
+     
+  
+</mapper>

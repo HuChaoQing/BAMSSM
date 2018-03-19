@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itcast.ssm.mapper.UsersMapperCustom">
+  
+   
+             <!-- 定义商品查询的sql片段，就是商品查询条件 -->
+             
+    <!-- <sql id="query_user_where">
+                    使用动态sql,通过if判断，满足条件进行sql拼接
+         <if test="usermap!=null">
+            <foreach collection="usermap" item="userm">             
+             user.username =#{userm.username} and user.password =#{userm.password}
+            </foreach> 
+
+         </if>    	
+     </sql>  -->
+             
+    <sql id="query_user_where">
+          <!-- 使用动态sql,通过if判断，满足条件进行sql拼接 -->
+         <if test="userc!=null">
+            <if test="userc.username!=null and userc.username!='' and userc.userpassword!=null and userc.userpassword!=''">
+               users.username =#{userc.username} and users.userpassword =#{userc.userpassword}
+            </if>       
+         </if>    	
+     </sql>  
+     <!-- 商品列表查询 -->
+     <!-- parameterType传入包装对象 (包装了查询条件)
+          resultType 建议使用扩展对象
+      -->    
+     <!-- 商品列表查询 -->
+     <select id="findUserToLogim" parameterType="cn.itcast.ssm.po.UsersCustom" 
+             resultType="cn.itcast.ssm.po.UsersCustom"   >
+               SELECT users.* FROM users
+           <where> <include refid="query_user_where"></include>  </where>
+     </select>
+     
+  
+     
+</mapper>
